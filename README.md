@@ -48,3 +48,10 @@ DB_user = "usernme of datatabse"
 DB_password = 'database password'
 
 ```
+### In The Browser
+1.  To Create differnt types of collection (ex., Poem, Novel and Sci-fi, etc.), Go to the "Add Type" page.
+2.  To view all the collection type, Go to the "Book Types" page.
+3.  To add a book, Go to the "Add Book" page.
+4.  To view all book, Go to the "Book" page. Here, by clicking Edit/Delete button, you can edit/delete a book.
+5.  To add a book into a Collection Type, Go to the "Add Book Collections" page
+6. To delete a book from Collection Type, Go to the "Book Types" page, then Click on the Collection Type from which you want to delete a book, then click on the delete button of a book which you want to delete.
