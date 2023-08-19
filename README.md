@@ -53,5 +53,5 @@ DB_password = 'database password'
 2.  To view all the collection type, Go to the "Book Types" page.
 3.  To add a book, Go to the "Add Book" page.
 4.  To view all book, Go to the "Book" page. Here, by clicking Edit/Delete button, you can edit/delete a book.
-5.  To add a book into a Collection Type, Go to the "Add Book Collections" page
+5.  To add a book into a Collection Type, Go to the "Add Book Collections" page, then select book name and select the book type where you want to add the book.
 6. To delete a book from Collection Type, Go to the "Book Types" page, then Click on the Collection Type from which you want to delete a book, then click on the delete button of a book which you want to delete.
