@@ -13,7 +13,7 @@ const AllCollection = () => {
     const [types, setTypes] = useState();
     const getAllBook = async(page)=>{
         try{
-            const res = await axios.get(`http://localhost:8000/api/viewCollection?page=${page}&pageSize=2`);
+            const res = await axios.get(`http://localhost:8000/api/viewCollection?page=${page}&pageSize=10`);
             console.log(res.data)
             const {collection_list, totalPages} = res.data
             setTypes(collection_list)

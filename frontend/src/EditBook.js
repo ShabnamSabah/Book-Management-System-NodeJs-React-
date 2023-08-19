@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import styles from './styles/Form.module.css'
-const AddBook = () => {
+const EditBook = () => {
     const [name, setName] = useState('')
     const [author, setAuthor] = useState('')
     const [img_link, setImageLink] = useState('')
@@ -81,4 +81,4 @@ const AddBook = () => {
   )
 }
 
-export default AddBook
+export default EditBook

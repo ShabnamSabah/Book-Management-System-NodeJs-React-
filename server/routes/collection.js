@@ -27,7 +27,7 @@ router.post("/addCollection", (req, res) => {
 
   if (!collection_name) {
     res.status(400).json({
-      message: "Please fill in all the fields",
+      error: "Please fill in all the fields",
     });
   } else {
     const newCollection = new Collection({

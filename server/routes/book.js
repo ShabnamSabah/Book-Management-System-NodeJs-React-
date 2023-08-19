@@ -14,7 +14,7 @@ router.post("/addBook", (req, res) => {
 
   if (!name || !author || !img_link) {
     res.status(400).json({
-      message: "Please fill in all the fields",
+     error: "Please fill in all the fields",
     });
   } else {
     const newBook = new Book({
@@ -143,8 +143,9 @@ router.post("/createBookCollection", (req, res) => {
           (collection) => {
             if (collection) {
               Book_Collection.findOne({where: {
-                bookId:book.id,
-                collectionId: collection.id
+                [Op.and]:[
+                  {bookId:book.id},
+                 {collectionId: collection.id}]
               }}).then(x=>{
                 if(!x){
                   const newBook_Collection = new Book_Collection({

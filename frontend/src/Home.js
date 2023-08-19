@@ -4,7 +4,6 @@ import Layout from './components/Layout'
 import styles from './styles/Layout.module.css'
 import HomeItem from './components/HomeItem';
 import axios from 'axios';
-import { Link} from 'react-router-dom';
 
 import { useEffect, useState } from 'react';
 import Pagination from './components/Pagination';

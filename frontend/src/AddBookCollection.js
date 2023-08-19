@@ -4,7 +4,9 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import styles from './styles/Form.module.css'
-const AddBook = () => {
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+const AddBookCollection = () => {
     const [name, setName] = useState('')
     const [author, setAuthor] = useState('')
     const [type, setType] = useState('');
@@ -36,11 +38,17 @@ useEffect(()=>{
             author,
             type
         }).then(res=>{
-            navigate('/')
-           console.log(res.data)
+            //navigate('/')
+           //console.log(res.data)
+           toast.success(res.data.message);
+           navigate('/addBookCollection');
+           setName("");
+           setAuthor("");
+           setType("")
         }
         ).catch(err=>{
-            console.log(err.response.data)
+            //console.log(err.response.data)
+            toast.error(err.response.data.error)
         })
         
     }
@@ -48,17 +56,18 @@ useEffect(()=>{
     <Layout>
    
      <h1>Create Book Collection</h1>
+     <ToastContainer />
       <form className={styles.form} onSubmit={handleSubmit}>
          <div className={styles.grid}>
           <div>
               <label htmlFor="">Name</label>
               <input type="text" placeholder="Enter Name.." className="form-control" name="name"
-              onChange={e=> setName(e.target.value)}
+              onChange={e=> setName(e.target.value)} value={name}
               />
           </div>
           <div>
           <label htmlFor="">Author</label>
-              <input type="text" placeholder="Enter Author.." className="form-control"  name="author" onChange={e=> setAuthor(e.target.value)}/>
+              <input type="text" placeholder="Enter Author.." className="form-control"  name="author" onChange={e=> setAuthor(e.target.value)} value={author}/>
           </div>
           <div>
           <label htmlFor="">Book Type</label>
@@ -86,4 +95,4 @@ useEffect(()=>{
   )
 }
 
-export default AddBook
+export default AddBookCollection

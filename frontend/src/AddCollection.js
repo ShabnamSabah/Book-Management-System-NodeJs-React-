@@ -4,7 +4,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles/Form.module.css";
 import Layout from "./components/Layout";
-const AddBook = () => {
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+const AddCollection = () => {
   const [collection_name, setCollection] = useState("");
 
   const navigate = useNavigate();
@@ -16,17 +18,19 @@ const AddBook = () => {
         collection_name,
       })
       .then((res) => {
-        console.log(res);
-        navigate("/");
-      })
+        toast.success(res.data.message);
+        navigate('/addType');
+        setCollection("");
+       })
       .catch((err) => {
-        console.log(err.response.data.error);
+        //console.log(err.response.data.error);
+       toast.error(err.response.data.error)
       });
   }
   return (
     <Layout>
       <h1>Add Book Type</h1>
-
+      <ToastContainer />
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.grid}>
           <div>
@@ -37,6 +41,7 @@ const AddBook = () => {
               className="form-control"
               name="collection_name"
               onChange={(e) => setCollection(e.target.value)}
+              value={collection_name}
             />
           </div>
         </div>
@@ -46,4 +51,4 @@ const AddBook = () => {
   );
 };
 
-export default AddBook;
+export default AddCollection;
