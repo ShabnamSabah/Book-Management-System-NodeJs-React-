@@ -68,11 +68,7 @@ router.get("/viewCollection", (req, res) => {
 });
 
 router.get("/viewCollections", (req, res) => {
-  Collection.findAll({
-    include:[{
-      model: Book
-    }]
-  })
+  Collection.findAll()
     .then(collection => {
       res.status(200).json(collection);
     })

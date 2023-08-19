@@ -60,6 +60,18 @@ router.get("/viewAllBook", (req, res) => {
     );
 });
 
+router.get("/viewAllBooks", (req, res) => {
+  Book.findAll()
+    .then(book => {
+      res.status(200).json(book);
+    })
+    .catch((err) =>
+      res.status(404).json({
+        error: err,
+      })
+    );
+});
+
 router.get("/getBook/:id", (req, res) => {
   Book.findAll({
     where:{id: req.params.id},
@@ -128,9 +140,12 @@ router.delete("/deleteBook/:id", (req, res) => {
 });
 
 //Add A Book Into Book Callection
-router.post("/createBookCollection", (req, res) => {
+/*router.post("/createBookCollection", (req, res) => {
   let { name, author, type } = req.body;
- console.log(author)
+   console.log(author)
+  if(!name || !author || !type){
+    res.status(400).json({error: "Please fill in all the fields"})
+  }else{
   Book.findOne({
     where: {
       name,
@@ -193,8 +208,79 @@ router.post("/createBookCollection", (req, res) => {
     .catch((err) => {
       res.status(404).json({ error: err });
     });
+  }
 });
+*/
 
+router.post("/createBookCollection", (req, res) => {
+  let { name, type } = req.body;
+   //console.log(author)
+  if(!name || !type){
+    res.status(400).json({error: "Please fill in all the fields"})
+  }else{
+  Book.findOne({
+    where: {
+      name
+    },
+  })
+    .then((book) => {
+      if (book) {
+        Collection.findOne({ where: { collection_name: type } }).then(
+          (collection) => {
+            if (collection) {
+              Book_Collection.findOne({where: {
+                [Op.and]:[
+                  {bookId:book.id},
+                 {collectionId: collection.id}]
+              }}).then(x=>{
+                if(!x){
+                  const newBook_Collection = new Book_Collection({
+                    bookId: book.id,
+                    collectionId: collection.id,
+                  });
+                  newBook_Collection
+                    .save()
+                    .then((book_collection) => {
+                      res
+                        .status(200)
+                        .json({ message: `${book.name} Added To ${collection.collection_name} Successfully`});
+                    })
+                    .catch((err) => {
+                   res.status(400).json({ error: `${book.name} Not Added To ${collection.collection_name}` });
+                    }); 
+                }else{
+                      Book_Collection.update({
+                        bookId: book.id,
+                        collectionId: collection.id
+                      },{
+                        where:{
+                          bookId: book.id,
+                          collectionId: collection.id
+                        }
+                      }).then(y=>{
+                        res
+                        .status(400)
+                        .json({ error: `${book.name} Already Exists In ${collection.collection_name}` });
+                      }).catch(err=>{
+                        res.status(400).json({ error: "No Book_Collection Created" });
+                      })
+                }
+              })
+            
+            } else {
+             res.status(400).json({ error: "No Collection Found" });
+            }
+          }
+        );
+      } else {
+      res.status(400).json({ error: "No Book Found" });
+      }
+    })
+    .catch((err) => {
+      res.status(404).json({ error: err });
+    });
+  }
+});
 
 router.delete("/deleteFromBookCollection/:type/:id", (req, res) => {
   
